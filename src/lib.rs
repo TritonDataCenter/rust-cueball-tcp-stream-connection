@@ -16,8 +16,8 @@ pub struct TcpStreamWrapper {
     connected: bool
 }
 
-impl Connection for TcpStreamWrapper {
-    fn new(b: &Backend) -> Self {
+impl TcpStreamWrapper {
+    pub fn new(b: &Backend) -> Self {
         let addr = SocketAddr::from((b.address, b.port));
 
         TcpStreamWrapper {
@@ -26,7 +26,9 @@ impl Connection for TcpStreamWrapper {
             connected: false
         }
     }
+}
 
+impl Connection for TcpStreamWrapper {
     fn connect(&mut self) -> Result<(), Error> {
         match TcpStream::connect(&self.addr) {
             Ok(stream) => {
