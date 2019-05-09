@@ -2,11 +2,11 @@
  * Copyright 2019 Joyent, Inc.
  */
 
+use std::io::Error as IOError;
 use std::net::{SocketAddr, TcpStream};
 
 use cueball::backend::Backend;
 use cueball::connection::Connection;
-use cueball::error::Error;
 
 
 #[derive(Debug)]
@@ -29,20 +29,16 @@ impl TcpStreamWrapper {
 }
 
 impl Connection for TcpStreamWrapper {
-    fn connect(&mut self) -> Result<(), Error> {
-        match TcpStream::connect(&self.addr) {
-            Ok(stream) => {
-                self.stream = Some(stream);
-                self.connected = true;
-                Ok(())
-            },
-            Err(err) => {
-                Err(Error::IOError(err))
-            }
-        }
+    type Error = IOError;
+
+    fn connect(&mut self) -> Result<(), Self::Error> {
+        let stream = TcpStream::connect(&self.addr)?;
+        self.stream = Some(stream);
+        self.connected = true;
+        Ok(())
     }
 
-    fn close(&mut self) -> Result<(), Error> {
+    fn close(&mut self) -> Result<(), Self::Error> {
         self.stream = None;
         self.connected = false;
         Ok(())
