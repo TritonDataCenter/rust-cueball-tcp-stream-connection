@@ -4,6 +4,7 @@
 
 use std::io::Error as IOError;
 use std::net::{SocketAddr, TcpStream};
+use std::ops::{Deref, DerefMut};
 
 use cueball::backend::Backend;
 use cueball::connection::Connection;
@@ -11,7 +12,7 @@ use cueball::connection::Connection;
 
 #[derive(Debug)]
 pub struct TcpStreamWrapper {
-    stream: Option<TcpStream>,
+    pub stream: Option<TcpStream>,
     addr: SocketAddr,
     connected: bool
 }
@@ -42,5 +43,21 @@ impl Connection for TcpStreamWrapper {
         self.stream = None;
         self.connected = false;
         Ok(())
+    }
+}
+
+impl Deref for TcpStreamWrapper {
+
+    type Target = TcpStream;
+
+    fn deref(&self) -> &TcpStream {
+        &self.stream.as_ref().unwrap()
+    }
+}
+
+impl DerefMut for TcpStreamWrapper
+{
+    fn deref_mut(&mut self) -> &mut TcpStream {
+        self.stream.as_mut().unwrap()
     }
 }
