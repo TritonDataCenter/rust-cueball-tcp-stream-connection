@@ -1,6 +1,4 @@
-/*
- * Copyright 2019 Joyent, Inc.
- */
+// Copyright 2019 Joyent, Inc.
 
 use std::io::Error as IOError;
 use std::net::{SocketAddr, TcpStream};
@@ -9,12 +7,11 @@ use std::ops::{Deref, DerefMut};
 use cueball::backend::Backend;
 use cueball::connection::Connection;
 
-
 #[derive(Debug)]
 pub struct TcpStreamWrapper {
     pub stream: Option<TcpStream>,
     addr: SocketAddr,
-    connected: bool
+    connected: bool,
 }
 
 impl TcpStreamWrapper {
@@ -24,7 +21,7 @@ impl TcpStreamWrapper {
         TcpStreamWrapper {
             stream: None,
             addr: addr,
-            connected: false
+            connected: false,
         }
     }
 }
@@ -47,7 +44,6 @@ impl Connection for TcpStreamWrapper {
 }
 
 impl Deref for TcpStreamWrapper {
-
     type Target = TcpStream;
 
     fn deref(&self) -> &TcpStream {
@@ -55,8 +51,7 @@ impl Deref for TcpStreamWrapper {
     }
 }
 
-impl DerefMut for TcpStreamWrapper
-{
+impl DerefMut for TcpStreamWrapper {
     fn deref_mut(&mut self) -> &mut TcpStream {
         self.stream.as_mut().unwrap()
     }
