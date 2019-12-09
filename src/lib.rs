@@ -36,6 +36,15 @@ impl Connection for TcpStreamWrapper {
         Ok(())
     }
 
+    // FIXME: these 2 are dummy implementations
+    fn is_valid(&mut self) -> bool {
+        true
+    }
+    // Check to see if the connection has closed or is not operational.
+    fn has_broken(&mut self) -> bool {
+        false
+    }
+
     fn close(&mut self) -> Result<(), Self::Error> {
         self.stream = None;
         self.connected = false;
