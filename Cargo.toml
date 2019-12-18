@@ -5,4 +5,4 @@ authors = ["Kelly McLaughlin <kelly.mclaughlin@joyent.com>"]
 edition = "2018"
 
 [dependencies]
-cueball = { git = 'https://github.com/joyent/rust-cueball', tag = "0.1.1" }
+cueball = { git = 'https://github.com/joyent/rust-cueball', tag = "v0.1.1" }
