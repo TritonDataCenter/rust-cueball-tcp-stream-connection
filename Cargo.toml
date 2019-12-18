@@ -1,8 +1,8 @@
 [package]
 name = "cueball-tcp-stream-connection"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Kelly McLaughlin <kelly.mclaughlin@joyent.com>"]
 edition = "2018"
 
 [dependencies]
-cueball = { git = 'https://github.com/joyent/rust-cueball', branch = "0.1" }
+cueball = { git = 'https://github.com/joyent/rust-cueball', tag = "0.1.1" }
